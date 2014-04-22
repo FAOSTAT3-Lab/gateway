@@ -1,0 +1,94 @@
+
+
+
+
+.headBg {
+    background-image: url("faostat-images/headBg.png");
+    height: 75px;
+    width: 1000px;
+}
+
+.headWrapper {
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    width: 1000px;
+}
+
+.logoFao {
+    float: left;
+    padding: 13px 2px 13px 16px;
+}
+
+.langCont {
+    background-image: url("faostat-images/bgLanguages.png");
+    color: #FFFFFF;
+    float: right;
+    height: 22px;
+    left: 804px;
+    position: absolute;
+    top: 0;
+    width: 196px;
+}
+
+.lan {
+    color: #FFFFFF;
+    text-align: center;
+    text-decoration: none;
+    width: 60px;
+}
+
+.lan_underline {
+    color: #FFFFFF;
+    text-align: center;
+    text-decoration: underline;
+    width: 60px;
+}
+
+.menu {
+    background-image: url("faostat-images/menuBg.png");
+}
+
+.menuitem {
+    background-color: #519BC1;
+    color: #FFFFFF;
+    font-weight: bold;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.menuitem:hover{
+    background-color: #338CB8;
+}
+
+
+
+.footerFS {
+    background-image: url("faostat-images/headBg.png");
+    display: block;
+    float: left;
+    height: 74px;
+    width: 100%;
+}
+
+.footerText {
+    color: #FFFFFF;
+    float: left;
+    padding: 16px 0 13px 16px;
+}
+
+a:link {
+    color: #1D4589;
+}
+
+.footer-link {
+    color: #FFFFFF;
+}
+
+.search {
+    content:url("faostat-images/search-icon.png");
+}

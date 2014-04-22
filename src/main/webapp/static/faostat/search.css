@@ -1,0 +1,261 @@
+/** SEARCH **/
+
+.search-box-holder{
+    width: 635px;
+    margin: 15px auto 0;
+    text-align: center;
+
+}
+.search-box-bar{
+    display: inline-block;
+}
+
+.search-box-btn {
+    display: inline-block;
+}
+
+#searchbox {
+    width: 500px;
+    height: 30px;
+}
+
+.ui-widget textarea {
+    font-size: 15px !important;
+}
+
+.ui-menu-item {
+    font-size: 15px !important;
+}
+
+.ui-autocomplete {
+    max-height: 200px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+}
+/* IE 6 doesn't support max-height
+* we use height instead, but this forces the menu to always be this tall
+*/
+* html .ui-autocomplete {
+    height: 200px;
+}
+
+.search-categories {
+    position: relative; /* Tutti gli elementi interni saranno posizionati rispetto a questo div */
+    padding: 0;
+    margin: 0;
+    width:auto;
+    display:block;
+    background-color: #F5F5F5;
+}
+
+.search-categories-label {
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    color: #737373;
+    display: inline-block;
+    font-size: 12px;
+    margin: 0 18px;
+    max-width: 180px;
+    min-width: 20px;
+    overflow: hidden;
+    padding: 13px 0 10px;
+    text-overflow: ellipsis;
+    transition: border-color 0.218s ease 0s;
+    vertical-align: top;
+    white-space: nowrap;
+}
+
+.search-categories-label:hover {
+    border-color: #5EADD4;
+    color: #262626;
+    text-decoration: none;
+    transition: border-color 0.218s ease 0s;
+}
+
+
+.search-categories-label-selected {
+    border-color: #5EADD4;
+    color: #262626;
+    text-decoration: none;
+    transition: border-color 0.218s ease 0s;
+}
+
+
+
+
+.search-no-values {
+    font-size: 15px;
+    color: #399BCC;
+    display: none;
+}
+
+#search-example {
+    font-size: 12px;
+    color: #aaa;
+}
+
+
+#search-button:hover {
+    cursor: pointer;
+}
+
+
+.search-tree-title {
+    font-size: 11px;
+}
+
+.search-tree-container {
+    display: none;
+}
+
+.search-result-title {
+
+}
+
+
+.single-result-title {
+    color: #2471AA;
+    font-weight: bold;
+    font: 19px 'Open Sans Condensed', sans-serif;
+    position: relative;
+    display: inline;
+}
+
+
+
+.single-result-code {
+    position: relative;
+    left: 6px;
+    display: inline;
+    margin-right: 8px;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #AAAAAA;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    padding: 2px;
+    top: -2px;
+}
+
+.single-result-group {
+    color: #999999;
+    font-size: 10px;
+    font-weight: bold;
+    padding-bottom: 2px;
+    text-transform: uppercase;
+    display: inline;
+}
+
+.single-result-domain {
+    color: #666666;
+    font-size: 10px;
+    font-weight: bold;
+    padding-bottom: 2px;
+    text-transform: uppercase;
+    display: inline;
+}
+
+.single-result-domain:hover {
+    cursor: pointer;
+}
+
+.single-result-elements {
+    color: #aaa;
+    font-size: 10px;
+}
+
+.single-result-title-details{
+    display: inline-block;
+}
+
+.single-result-buttons {
+    float:right;
+    display: inline-block;
+    padding-top: 6px;
+}
+
+.single-result-button {
+    background-color: #399BCC;
+    color: #fff;
+    font-size: 14px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.single-result-button:hover {
+    background-color: #aaa;
+    cursor: pointer;
+}
+
+.single-result-table-title {
+    color: #aaa;
+    font-size: 13px;
+    display: none;
+    display: inline-block;
+}
+
+.search-filter-title {
+    color: #2471AA;
+    font-weight: bold;
+    font: 19px 'Open Sans Condensed', sans-serif;
+    cursor: pointer;
+    margin-top: 9px;
+}
+
+.search-filter-title-closed {
+
+}
+
+#search-content {
+    display: none;
+}
+
+#search-results {
+    padding:10px 20px 20px 20px;
+    clear:both;
+    background-color: #E5E5E5;
+}
+
+.search-tree-select-all {
+    padding-left: 10px;
+    font-size: 12px
+}
+
+.search-tree-select-all:hover {
+    cursor: pointer;
+}
+
+#search-tree {
+    border: none;
+}
+
+#panelsearch-tree {
+    border: none;
+}
+
+.single-result-table-showhide {
+    width: 16px; height: 16px;
+    background-image: url(faostat-images/icons/up.png);
+    cursor: pointer;
+    float: right;
+    display: inline-block;
+}
+
+
+.single-result-table-showhide:hover {
+    background-image: url(faostat-images/icons/upOver.png);
+}
+
+.single-result-table-box {
+    margin-top: 10px;
+}
+
+
+
+
+
+
+
