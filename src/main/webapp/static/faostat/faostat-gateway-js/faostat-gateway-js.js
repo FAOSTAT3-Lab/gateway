@@ -67,7 +67,7 @@ if (!window.FAOSTATGateway) {
         },
 
         _loadFeedbackSystem: function(id) {
-            $("#" + id).fancybox();
+           // $("#" + id).fancybox();
         }
 
     };

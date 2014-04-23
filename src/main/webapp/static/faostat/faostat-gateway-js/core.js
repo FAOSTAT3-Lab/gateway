@@ -7,7 +7,7 @@ if (!window.CORE) {
         /**
          * The base URL is used to load FAOSTAT modules.
          */
-        baseURL : '168.202.28.214:8085',
+        baseURL : 'localhost:8080',
 
         groupCode : null,
 
@@ -16,6 +16,10 @@ if (!window.CORE) {
         word : null,
 
         lang : null,
+
+        CONFIG : {
+
+        },
 
         CONFIG_MES: {
             prefix                  : 'http://168.202.28.214:8085/fenix-mes/',
@@ -118,11 +122,11 @@ if (!window.CORE) {
          * Function linked to the Gateway's menu that load the requested module in the main content.
          */
         loadModule : function(module, group, domain, lang) {
-            window.location.href = 'http://' + CORE.baseURL + '/faostat-gateway/go/to/' + module + '/' + group + '/' + domain + '/' + lang;
+            window.location.href = 'http://' + CORE.baseURL + '/' + module + '/' + group + '/' + domain + '/' + lang;
         },
 
         loadSearchModule : function(module, word, lang) {
-            window.location.href = 'http://' + CORE.baseURL + '/faostat-gateway/go/to/' + module + '/' + word + '/' + lang;
+            window.location.href = 'http://' + CORE.baseURL + '/' + module + '/' + word + '/' + lang;
         },
 
         /**
@@ -145,7 +149,7 @@ if (!window.CORE) {
         upgradeURL : function(module, group, domain, lang) {
             /** TODO: make is as load module **/
             if (CORE.testHTML5()) {
-                window.history.pushState(null, 'Test', '/faostat-gateway/go/to/' + module + '/' + group + '/' + domain + '/' + lang);
+                window.history.pushState(null, '', '/' + module + '/' + group + '/' + domain + '/' + lang);
             }
         },
 
@@ -167,7 +171,7 @@ if (!window.CORE) {
                 CORE.loadMapJS[module] = true;
 
                 // Load module's libraries.
-                $.getJSON('http://' + CORE.baseURL + '/faostat-gateway/static/faostat/faostat-gateway-js/libs.json', function (data) {
+                $.getJSON('http://' + CORE.baseURL + '/static/faostat/faostat-gateway-js/libs.json', function (data) {
 
                     if(typeof data == 'string')
                         data = $.parseJSON(data);
@@ -257,7 +261,7 @@ if (!window.CORE) {
                 case 'S' : I18NLang = 'es'; break;
                 default: I18NLang = 'en'; break;
             }
-            var path =  'http://'+ CORE.baseURL +'/faostat-gateway/static/faostat/I18N/';
+            var path =  'http://'+ CORE.baseURL +'/static/faostat/I18N/';
 
             $.i18n.properties({
                 name: 'I18N',
@@ -282,9 +286,9 @@ if (!window.CORE) {
         loadModule: function(module, options) {
 
             // TODO: move in in CORE.js
-            var defaultURL =  'http://' + CORE.baseURL +'/faostat-gateway/go/to/' + module+'/'+ options + '/'+  CORE.lang;
-            var homeURL    =  'http://' + CORE.baseURL +'/faostat-gateway/go/to/' + module + '/'+ CORE.lang;
-            var searchURL  =  'http://' + CORE.baseURL +'/faostat-gateway/go/to/' + module +'/'+ options + '/'+ CORE.lang
+            var defaultURL =  'http://' + CORE.baseURL +'/' + module + '/'+ options + '/'+  CORE.lang;
+            var homeURL    =  'http://' + CORE.baseURL +'/' + module + '/'+ CORE.lang;
+            var searchURL  =  'http://' + CORE.baseURL +'/' + module + '/'+ options + '/'+ CORE.lang
 
             switch (module) {
                 case 'search':

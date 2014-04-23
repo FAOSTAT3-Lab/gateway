@@ -1,21 +1,21 @@
 {
     "browse" : {
         "js" : [
-            "/faostat-browse-js/js/google-analytics-manager.js",
-            "/faostat-browse-js/js/faostat-browse-tree.js",
-            "/faostat-browse-js/js/UIBuilder.js",
-            "/faostat-browse-js/js/UIBuilderGrowthRate.js",
-            "/faostat-browse-js/js/UIBuilderTable.js",
-            "/faostat-browse-js/js/UIBuilderMap.js",
-            "/faostat-browse-js/js/UIBuilderChart.js",
-            "/faostat-browse-js/js/UIBuilderObjectsStructure.js",
-            "/faostat-browse-js/js/UIBuilderSelectors.js",
-            "/faostat-browse-js/js/I18NInjector.js",
-            "/faostat-browse-js/js/UIBuilderByCountry.js",
-            "/faostat-browse-js/js/UIBuilderRankings.js",
-            "/faostat-browse-js/js/UIBuilderTabSelector.js",
-            "/faostat-browse-js/js/Export.js",
-            "/faostat-browse-js/js/FAOSTATBrowseUtils.js"
+            "/browse/js/google-analytics-manager.js",
+            "/browse/js/faostat-browse-tree.js",
+            "/browse/js/UIBuilder.js",
+            "/browse/js/UIBuilderGrowthRate.js",
+            "/browse/js/UIBuilderTable.js",
+            "/browse/js/UIBuilderMap.js",
+            "/browse/js/UIBuilderChart.js",
+            "/browse/js/UIBuilderObjectsStructure.js",
+            "/browse/js/UIBuilderSelectors.js",
+            "/browse/js/I18NInjector.js",
+            "/browse/js/UIBuilderByCountry.js",
+            "/browse/js/UIBuilderRankings.js",
+            "/browse/js/UIBuilderTabSelector.js",
+            "/browse/js/Export.js",
+            "/browse/js/FAOSTATBrowseUtils.js"
         ]
     },
     "analysis" : {
@@ -56,9 +56,9 @@
     },
     "search" : {
         "js" : [
-            "/faostat-search-js/js/faostat-search-export.js",
-            "/faostat-search-js/js/faostat-search-google-analytics-manager.js",
-            "/faostat-search-js/js/faostat-search-single-result.js",
+            "/search/js/faostat-search-export.js",
+            "/search/js/faostat-search-google-analytics-manager.js",
+            "/search/js/faostat-search-single-result.js",
             "http://fenixapps.fao.org/repository/js/jquery-ui/1.10.3/jquery-ui-1.10.3.custom.min.js",
             "http://fenixapps.fao.org/repository/js/jquery.rangeslider/5.1.1/jQRangeSlider-min.js"
         ],

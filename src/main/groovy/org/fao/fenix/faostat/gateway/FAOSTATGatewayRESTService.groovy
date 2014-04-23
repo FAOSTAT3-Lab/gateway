@@ -34,8 +34,10 @@ import org.fao.fenix.faostat.gateway.*;
  * @author <a href="mailto:guido.barbaglia@fao.org">Guido Barbaglia</a>
  * @author <a href="mailto:guido.barbaglia@gmail.com">Guido Barbaglia</a>
  * */
-@Path("to")
+@Path("")
 class FAOSTATGatewayRESTService {
+
+
 
     def CONFIG_FILE = 'static/faostat/config/config.json'
 
