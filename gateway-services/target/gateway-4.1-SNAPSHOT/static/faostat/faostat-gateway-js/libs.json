@@ -1,0 +1,90 @@
+{
+    "browse" : {
+        "js" : [
+            "/browse/js/google-analytics-manager.js",
+            "/browse/js/faostat-browse-tree.js",
+            "/browse/js/UIBuilder.js",
+            "/browse/js/UIBuilderGrowthRate.js",
+            "/browse/js/UIBuilderTable.js",
+            "/browse/js/UIBuilderMap.js",
+            "/browse/js/UIBuilderChart.js",
+            "/browse/js/UIBuilderObjectsStructure.js",
+            "/browse/js/UIBuilderSelectors.js",
+            "/browse/js/I18NInjector.js",
+            "/browse/js/UIBuilderByCountry.js",
+            "/browse/js/UIBuilderRankings.js",
+            "/browse/js/UIBuilderTabSelector.js",
+            "/browse/js/Export.js",
+            "/browse/js/FAOSTATBrowseUtils.js"
+        ]
+    },
+    "analysis" : {
+        "js" : [
+            "/faostat-analysis-js/js/faostat-analysis-collector.js",
+            "/faostat-analysis-js/js/wds-client.js",
+            "/faostat-analysis-js/js/google-analytics-manager.js",
+            "http://fenixapps.fao.org/repository/js/jquery-ui/1.10.3/jquery-ui-1.10.3.custom.min.js",
+            "http://fenixapps.fao.org/repository/js/jquery.rangeslider/5.1.1/jQRangeSlider-min.js"
+        ],
+        "css" : [
+            "http://fenixapps.fao.org/repository/css/jquery-ui/1.9.2/smoothness/jquery-ui.custom_faostat.css",
+            "http://fenixapps.fao.org/repository/js/jquery.rangeslider/5.1.1/css-custom/iThing_custom.css"
+        ]
+    },
+    "mes" : {
+        "js" : [
+            "/mes/js/google-analytics-manager.js"
+        ]
+    },
+    "download" : {
+        "js" : [
+            "/faostat-download-js/js/I18N.js",
+            "/faostat-download-js/js/cpi.js",
+            "/faostat-download-js/js/collector.js",
+            "/faostat-download-js/js/faostat-download-options.js",
+            "/faostat-download-js/js/faostat-download-selectors-advanced.js",
+            "/faostat-download-js/js/faostat-download-selectors-classic.js",
+            "/faostat-download-js/js/faostat-download-selectors.js",
+            "/faostat-download-js/js/faostat-download-tree.js",
+            "/faostat-download-js/js/faostat-download-wizard.js",
+            "/faostat-download-js/js/google-analytics-manager.js",
+            "/faostat-download-js/js/index.js",
+            "/faostat-download-js/js/JQUERY-FIELD.js",
+            "/faostat-download-js/js/wizard-navigator.js",
+            "/faostat-download-js/FBSN.js"
+        ]
+    },
+    "search" : {
+        "js" : [
+            "/search/js/faostat-search-export.js",
+            "/search/js/faostat-search-google-analytics-manager.js",
+            "/search/js/faostat-search-single-result.js",
+            "http://fenixapps.fao.org/repository/js/jquery-ui/1.10.3/jquery-ui-1.10.3.custom.min.js",
+            "http://fenixapps.fao.org/repository/js/jquery.rangeslider/5.1.1/jQRangeSlider-min.js"
+        ],
+        "css" : [
+            "http://fenixapps.fao.org/repository/css/jquery-ui/1.9.2/smoothness/jquery-ui.custom_faostat.css",
+            "http://fenixapps.fao.org/repository/js/jquery.rangeslider/5.1.1/css-custom/iThing_custom.css"
+        ]
+    },
+    "compare" : {
+        "js" : [
+            "/faostat-compare-js/js/CompareI18N.js",
+            "/faostat-compare-js/js/CompareI18NInjector.js",
+            "/faostat-compare-js/js/CompareUIBuilderSelectors.js",
+            "/faostat-compare-js/js/CompareUIBuilderChart.js",
+            "/faostat-compare-js/js/CompareUIBuilderTable.js",
+            "/faostat-compare-js/js/CompareUIBuilderMap.js",
+            "/faostat-compare-js/js/CompareUtils.js",
+            "/faostat-compare-js/js/CompareUIUtils.js",
+            "/faostat-compare-js/js/jshashtable.js",
+            "/faostat-compare-js/js/compare-google-analytics-manager.js",
+            "http://fenixapps.fao.org/repository/js/jquery-ui/1.10.3/jquery-ui-1.10.3.custom.min.js",
+            "http://fenixapps.fao.org/repository/js/jquery.rangeslider/5.1.1/jQRangeSlider-min.js"
+        ],
+        "css" : [
+            "http://fenixapps.fao.org/repository/css/jquery-ui/1.9.2/smoothness/jquery-ui.custom_faostat.css",
+            "http://fenixapps.fao.org/repository/js/jquery.rangeslider/5.1.1/css-custom/iThing_custom.css"
+        ]
+    }
+}

@@ -1,0 +1,109 @@
+<!-- <body class='default' onload='CORE.initModule("download", "$_GROUP_CODE", "$_DOMAIN_CODE", "$_LANG");'> -->
+<script>CORE.initModule("download", "$_GROUP_CODE", "$_DOMAIN_CODE", "$_LANG");</script>
+
+<div id="container">
+
+    <!-- Title -->
+    <div class="pageTitleCommands">
+        <h1>Download</h1>
+        <div id='mesType'>
+            <input id="standardDownload" type="radio" checked="checked" value="standardDownload" name="radios" onclick="FAOSTATDownload.standardDownload();">
+            <label id="standard_download_label" for="standardDownload">Standard Download</label>
+            |
+            <input id="bulkDownload" type="radio" value="bulkDownload" name="radios" onclick="FAOSTATDownload.bulkDownload();">
+            <label id="bulk_download_label" for="bulkDownload">Bulk Download</label>
+            <div id="crf" style="display: none;">
+                |
+                <input id="crf1996Download" type="radio" value="crf1996Download" name="radios" onclick="CRF.showCRF1996();">
+                <label id="crf_1996_download_label" for="crf1996Download">CRF 1996</label>
+                |
+                <input id="crf2006Download" type="radio" value="crf2006Download" name="radios" onclick="CRF.showCRF2006();">
+                <label id="crf_2006_download_label" for="crf2006Download">CRF 2006</label>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div style="overflow: hidden;" id="trWizardMode"> -->
+    <!-- to be removed -->
+    <div id="trWizardMode" style="display:none;">
+
+        <div id="settings-section" class="settings-section" style="padding: 10px 0px 10px 10px; float: right;">
+            <div class="settings-label" id='selection_mode' style="margin-top: 6px; margin-right: 10px; float: left; font-family: verdana; font-size: 12px; font-weight: bold;"></div>
+            <img onclick="FAOSTATDownload.showDialog('dialog', 'This features helps the data selection process, but it is resource consuming, therefore the navigation will be slower.')" src="resources/images/information.png" style="margin-top: 6px; margin-right: 10px;"/>
+            <div class="settings-setter" style="float: right;">
+                <div id="linkCodelistsButton"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- content -->
+    <div id='main-content-leftsidebar'>
+
+        <div class="left-sidebar">
+            <div class="standard-title">FAOSTAT Domains</div>
+            <hr class="standard-hr">
+            <div class='tree-sidebar-scroll'>
+                <div id='jqxTree'></div>
+            </div>
+        </div>
+
+        <div class="right-content" style="width:790px;overflow:visible">
+            <div id="central_area" class='download-central-area'>
+
+                <div id="mainTD" ></div>
+
+                <div id="OLAPTD">
+
+                    <!-- Selectors Area -->
+                    <div id="listArea"></div>
+
+                    <div id="output_buttons"></div>
+
+                    <div class='clear'></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div id="output_area"></div>
+
+
+        <div id="optionsArea" style="float: left;"></div>
+
+        <div class='clear'></div>
+
+        <div id="testinline"></div>
+
+        <form id="monMainForm" action="/faostat.olap.ws/rest/OLAPCreator/" method="POST"  target="OLAP">
+            <input type="hidden" name="n" id="n" value="4"/>
+            <input type="hidden" name="d" id="d" value="ElementCode#AreaCode#ItemCode#Year"/>
+            <input type="hidden" name="v" id="v" value="5530#4,68#15,31#1985"/>
+            <input type="hidden" name="o" id="o" value="sum"/>
+            <input type="hidden" name="id" id="id" value="Warehouse"/>
+            <input  type="hidden" name="domain" id="domain" value="PA_PI_PP"/>
+            <input  type="hidden" name="a" id="a" value="0#0#0#0"/>
+            <input  type="hidden"name="c" id="c" value="0,1#2,3"/>
+            <input  type="hidden" name="option" id="option" value="showChart:0,headingBefore:0,headingAfter:0,headingOutside:1,showchoosedim:0,nbDec:2,subtotals:0,totals:0,calcTotal:1,showFlags:1,showUnits:1,,nestedby:1,showEmpty:0,type:-1" />
+            <input type="hidden" name="xml" id="xml" value="">
+        </form>
+
+        <div id="METADATA" style="display:none"></div>
+
+
+        <div id="uvTab" style="background:red url() 0 50% no-repeat;border:1px solid #FFF;border-bottom:none;-moz-border-radius:4px 4px 0 0;-webkit-border-radius:4px 4px 0 0;border-radius:4px 4px 0 0;-moz-box-shadow:inset rgba(255,255,255,.25) 1px 1px 1px, rgba(0,0,0,.5) 0 1px 2px;-webkit-box-shadow:inset rgba(255,255,255,.25) 1px 1px 1px, rgba(0,0,0,.5) 0 1px 2px;box-shadow:inset rgba(255,255,255,.25) 1px 1px 1px, rgba(0,0,0,.5) 0 1px 2px;font:normal normal bold 14px/1em Arial, sans-serif;position:fixed;right:10px;bottom:0;z-index:9999;background-color:#AA4643;" class="uv-tab uv-slide-bottom ">
+        </div>
+
+
+
+
+        <!-- TODO: The feedback has the same id of fullscreen button id="btnFS" -->
+        <!-- <div style="display:none" class="various myButton" id="btnFS" data-fancybox-type="iframe" href="http://hqlprfenixapp1.hq.un.fao.org:81/FAOFB/FAOSTATFEEDBACK/quickpost.php" target="myFanzy"><img src="http://widget.uservoice.com/dcache/widget/feedback-tab.png?t=Feedback&amp;c=ffffff&amp;r=0" alt="Feedback" style="border:0; background-color: transparent; padding:2px; margin:2px;"></div> -->
+        <!-- </div>
+
+    </div>-->
+
+    </div>

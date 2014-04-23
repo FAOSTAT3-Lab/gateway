@@ -1,0 +1,40 @@
+[
+    {
+        "title": {
+            "E" : "MARCH 2014",
+            "F" : "MARS 2014",
+            "S" : "MARZO 2014"
+        },
+        "description":  {
+            "E" : "Launch of new Food Security domain. Data on determinants, outcomes, and vulnerability/stability.",
+            "F" : "Lancement de nouvelles données de gaz à effet de serre avec de nouveaux sous-domaines. Elles incluent l’évaluation complète des émissions provenant de l’agriculture, des forêts et des secteurs d’utilisation des terres.",
+            "S" : "Lanzamiento de la nueva base de datos de gases de efecto invernadero (GEI), con subdominios adicionales. La base de datos incluye una evaluación completa de las emisiones procedentes de la agricultura, la silvicultura y el uso de la tierra."
+        }
+    },
+
+    {
+        "title": {
+            "E" : "MARCH 2014",
+            "F" : "MARS 2014",
+            "S" : "MARZO 2014"
+        },
+        "description":  {
+            "E" : "Launch of the new Food Security Database. It includes a set of food security statistics based on National Household Surveys. National and sub-national data, with special focus on gender disaggregated information.",
+            "F" : "Lancement de la nouvelle base de données de la sécurité alimentaire comprenant un ensemble de statistiques basées sur les enquêtes nationales auprès des ménages, et des données nationales et sous-nationales se concentrant tout particulièrement sur le genre en détail.",
+            "S" : "Lanzamiento de la nueva Base de Datos de la Seguridad Alimentaria. La base de datos incluye un conjunto de estadísticas de seguridad alimentaria basadas en Encuestas Nacionales de Hogares.Datos nacionales y sub-nacionales, con un enfoque especial en datos desagregados por género."
+        }
+    },
+
+    {
+        "title": {
+            "E" : "APRIL 2014",
+            "F" : "AVRIL 14",
+            "S" : "ABRIL 14"
+        },
+        "description":  {
+            "E" : "Government expenditure domain: Launch of the new Financing to agriculture domain. It comprises three main categories: credit, official development assistance (ODA), and foreign direct investment (FDI).",
+            "F" : "Domaine des dépenses gouvernementales:  lancement du nouveau financement du domaine agricole. Il inclut trois catégories principales: le credit, l’assistance officielle de développement (AOD) et les investissement étrangers directs (IED).",
+            "S" : "Dominio de gasto público: lanzamiento de la nueva financiación al dominio agricultura. Incluye tres categorias principales: el crédito, la asistencia oficial de desarrollo (AOD), y la inversión extranjera directa (IED)."
+        }
+    }
+]

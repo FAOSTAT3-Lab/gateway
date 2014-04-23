@@ -1,0 +1,139 @@
+<div class="siteContainer">
+
+    <div id="MENU" class="menu"></div>
+
+    <div id="HOME_SPLASH" class="HOME_SPLASH_E">
+        <img id='SPLASH' usemap="#imagemap">
+        <map name="imagemap">
+            <area id="Q" class="imagemap-area" shape="rect" coords="285,25,350,90"   onClick="CORE.loadModule('download', 'Q/*')">
+            <area class="imagemap-area" shape="rect" coords="435,25,500,90"   onClick="CORE.loadModule('download', 'T/*')">
+            <area class="imagemap-area" shape="rect" coords="585,34,645,90"   onClick="CORE.loadModule('download', 'C/*')">
+            <area class="imagemap-area" shape="rect" coords="735,34,795,90"   onClick="CORE.loadModule('download', 'E/*')">
+            <area class="imagemap-area" shape="rect" coords="880,34,945,90"   onClick="CORE.loadModule('download', 'FB/*')">
+            <area class="imagemap-area" shape="rect" coords="285,145,350,210" onClick="CORE.loadModule('download', 'P/*')">
+            <area class="imagemap-area" shape="rect" coords="435,145,500,210" onClick="CORE.loadModule('download', 'R/*')">
+            <area class="imagemap-area" shape="rect" coords="585,145,645,210" onClick="CORE.loadModule('download', 'G1/*')">
+            <area class="imagemap-area" shape="rect" coords="735,145,795,210" onClick="CORE.loadModule('download', 'I/*')">
+            <area class="imagemap-area" shape="rect" coords="880,145,945,210" onClick="CORE.loadModule('download', 'F/*')">
+        </map>
+    </div>
+
+</div>
+
+<div class="left-sidebar-home">
+
+    <div class="FAOSTAT-ZIP-Download-container" id="FAOSTAT-ZIP-Download">
+        <p class="FAOSTAT-ZIP-light-text" id='faostat-download-zip-download'></p>
+        <p class="FAOSTAT-ZIP-light-text" id='faostat-download-zip-database'></p>
+        <p class="FAOSTAT-ZIP-light-text-small" id='faostat-download-zip-click'></p>
+        <p class="FAOSTAT-ZIP-light-text-small-date" id='faostat-download-zip-date'></p>
+    </div>
+
+    <hr class="standard-hr">
+
+    <div> <p class="home-chart-title" id='chart1Title'></p>
+        <p class="home-chart-subtitle" id='chart1SubTitle'></p>
+    </div>
+
+    <div id='chart_1' style='width: 224px; height: 150px; margin-left: -1px; ' ></div>
+
+    <hr class="standard-hr">
+
+    <div> <p class="home-chart-title" id='chart2Title'></p>
+        <p class="home-chart-subtitle" id='chart2SubTitle'></p>
+    </div>
+
+    <div id='chart_2' style='width: 224px; height: 230px;  '></div>
+
+    <hr class="standard-hr">
+
+    <div> <p class="home-chart-title" id='chart3Title'></p>
+        <p class="home-chart-subtitle" id='chart3SubTitle'></p>
+    </div>
+
+    <div id='chart_3' style='width: 210px; height: 220px; '></div>
+
+</div>
+
+
+<div class="right-content-home">
+    <div class="browse-views-holder">
+
+        <!-- NEWS -->
+        <div class='home-news' style='top:0'>
+            <div class="obj-box obj-box-news">
+                <div class="obj-box-title" id='whatsNewText'></div>
+                <hr class="standard-hr">
+                <div id='whatsNew-content'></div>
+            </div>
+
+            <div class="obj-box obj-box-news">
+                <div class="obj-box-title"id='comingUpText'></div>
+                <hr class="standard-hr">
+                <div id='comingUp-content'></div>
+            </div>
+        </div>
+
+        <div class='clear'></div>
+
+        <!-- Release Calendar / Database updates -->
+        <div class="obj-box obj-box-update">
+            <div style="float: left;">
+                <div class="obj-box-title" id='databaseUpdatesText'></div>
+            </div>
+            <div id='release-calendar' style="float: right;">
+                <img id='release-calendar-img' width="40" height="36"/>
+                <div  class="obj-box-title release-calendar-text" id='releaseCalendarText'></div>
+            </div>
+            <div class='clear'></div>
+            <hr class="standard-hr">
+            <div id="database-updates" class='database-updates'></div>
+        </div>
+
+        <div class='clear'></div>
+
+        <!-- Partners -->
+        <div class="obj-box obj-box-partners">
+            <div class="obj-box-title" id='partners'></div>
+            <hr class="standard-hr">
+            <div class="obj-box-partners-link" id='ifpri'> <a href="http://www.ifpri.org/" target="_blank"> <img src="http://$_BASE_URL/faostat-gateway/static/faostat/faostat-images/partners/ifpri.gif" alt="ilo" />  </a> </div>
+            <div class="obj-box-partners-link" id='ilo'> <a href="http://www.ilo.org/global/lang--en/index.htm" target="_blank"> <img src="http://$_BASE_URL/faostat-gateway/static/faostat/faostat-images/partners/ilo.gif" alt="ilo" /> </a> </div>
+            <div class="obj-box-partners-link" id='oecd'> <a href="http://www.oecd.org/" target="_blank"> <img src="http://$_BASE_URL/faostat-gateway/static/faostat/faostat-images/partners/oecd.gif" alt="oecd" /> </a> </div>
+            <div class="obj-box-partners-link" id='unfccc'> <a href="http://unfccc.int/2860.php" target="_blank"> <img src="http://$_BASE_URL/faostat-gateway/static/faostat/faostat-images/partners/climate.gif" alt="climate" /> </a> </div>
+            <div class="obj-box-partners-link" id='unstats'> <a href="http://unstats.un.org/unsd/default.htm" target="_blank"> <img src="http://$_BASE_URL/faostat-gateway/static/faostat/faostat-images/partners/statistics.gif" alt="statistic" /> </a> </div>
+            <div class="obj-box-partners-link" id='usda'> <a href="http://www.usda.gov/wps/portal/usda/usdahome" target="_blank"> <img src="http://$_BASE_URL/faostat-gateway/static/faostat/faostat-images/partners/usda.gif"alt="usda" /> </a> </div>
+            <div class="obj-box-partners-link" id='worldbank'> <a href="http://www.worldbank.org/" target="_blank"> <img src="http://$_BASE_URL/faostat-gateway/static/faostat/faostat-images/partners/worldbank.gif"alt="worldbank" /> </a> </div>
+            <div class="obj-box-partners-link" id='wto'> <a href="http://www.wto.org/" target="_blank"> <img src="http://$_BASE_URL/faostat-gateway/static/faostat/faostat-images/partners/wto.gif" alt="wto" /> </a> </div>
+        </div>
+
+
+        <div class='clear'></div>
+
+        <!-- Links -->
+        <div class="obj-box obj-box-partners">
+
+            <div class="obj-box-title" id='faoLinks'></div>
+            <hr class="standard-hr">
+            <div id='partner-content'></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    FAOSTATHomeCharts.createCharts(CORE.lang);
+    FAOSTATDatabaseUpdate.getDatabaseUpdates(CORE.datasource, CORE.lang);
+
+    /** load of the image TODO: make it dynamic**/
+    document.getElementById("SPLASH").src = "http://"+ CORE.baseURL +"/faostat-gateway/static/faostat/faostat-images/welcome_"+ CORE.lang +".gif";
+    document.getElementById("release-calendar-img").src = "http://"+ CORE.baseURL +"/faostat-gateway/static/faostat/faostat-images/icons/calendar-ico.png";
+
+    $("#release-calendar").click(function(){
+        window.open("http://faostat3.fao.org/home/faostatReleaseCalendar.html", "_blank")
+    });
+
+    FAOSTATHome.loadUI(CORE.lang);
+
+    document.getElementById('faostat-download-zip-download').innerHTML = $.i18n.prop('_downloadZip');
+    document.getElementById('faostat-download-zip-database').innerHTML = $.i18n.prop('_database');
+    document.getElementById('faostat-download-zip-click').innerHTML = $.i18n.prop('_withoneclick');
+</script>
