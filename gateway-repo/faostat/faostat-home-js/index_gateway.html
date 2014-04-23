@@ -96,14 +96,14 @@
         <div class="obj-box obj-box-partners">
             <div class="obj-box-title" id='partners'></div>
             <hr class="standard-hr">
-            <div class="obj-box-partners-link" id='ifpri'> <a href="http://www.ifpri.org/" target="_blank"> <img src="http://$_BASE_URL/faostat-gateway/static/faostat/faostat-images/partners/ifpri.gif" alt="ilo" />  </a> </div>
-            <div class="obj-box-partners-link" id='ilo'> <a href="http://www.ilo.org/global/lang--en/index.htm" target="_blank"> <img src="http://$_BASE_URL/faostat-gateway/static/faostat/faostat-images/partners/ilo.gif" alt="ilo" /> </a> </div>
-            <div class="obj-box-partners-link" id='oecd'> <a href="http://www.oecd.org/" target="_blank"> <img src="http://$_BASE_URL/faostat-gateway/static/faostat/faostat-images/partners/oecd.gif" alt="oecd" /> </a> </div>
-            <div class="obj-box-partners-link" id='unfccc'> <a href="http://unfccc.int/2860.php" target="_blank"> <img src="http://$_BASE_URL/faostat-gateway/static/faostat/faostat-images/partners/climate.gif" alt="climate" /> </a> </div>
-            <div class="obj-box-partners-link" id='unstats'> <a href="http://unstats.un.org/unsd/default.htm" target="_blank"> <img src="http://$_BASE_URL/faostat-gateway/static/faostat/faostat-images/partners/statistics.gif" alt="statistic" /> </a> </div>
-            <div class="obj-box-partners-link" id='usda'> <a href="http://www.usda.gov/wps/portal/usda/usdahome" target="_blank"> <img src="http://$_BASE_URL/faostat-gateway/static/faostat/faostat-images/partners/usda.gif"alt="usda" /> </a> </div>
-            <div class="obj-box-partners-link" id='worldbank'> <a href="http://www.worldbank.org/" target="_blank"> <img src="http://$_BASE_URL/faostat-gateway/static/faostat/faostat-images/partners/worldbank.gif"alt="worldbank" /> </a> </div>
-            <div class="obj-box-partners-link" id='wto'> <a href="http://www.wto.org/" target="_blank"> <img src="http://$_BASE_URL/faostat-gateway/static/faostat/faostat-images/partners/wto.gif" alt="wto" /> </a> </div>
+            <div class="obj-box-partners-link" id='ifpri'> <a href="http://www.ifpri.org/" target="_blank"> <img src="$_GATEWAY_REPO_BASE_URL/faostat/faostat-images/partners/ifpri.gif" alt="ilo" />  </a> </div>
+            <div class="obj-box-partners-link" id='ilo'> <a href="http://www.ilo.org/global/lang--en/index.htm" target="_blank"> <img src="$_GATEWAY_REPO_BASE_URL/faostat/faostat-images/partners/ilo.gif" alt="ilo" /> </a> </div>
+            <div class="obj-box-partners-link" id='oecd'> <a href="http://www.oecd.org/" target="_blank"> <img src="$_GATEWAY_REPO_BASE_URL/faostat/faostat-images/partners/oecd.gif" alt="oecd" /> </a> </div>
+            <div class="obj-box-partners-link" id='unfccc'> <a href="http://unfccc.int/2860.php" target="_blank"> <img src="$_GATEWAY_REPO_BASE_URL/faostat/faostat-images/partners/climate.gif" alt="climate" /> </a> </div>
+            <div class="obj-box-partners-link" id='unstats'> <a href="http://unstats.un.org/unsd/default.htm" target="_blank"> <img src="$_GATEWAY_REPO_BASE_URL/faostat/faostat-images/partners/statistics.gif" alt="statistic" /> </a> </div>
+            <div class="obj-box-partners-link" id='usda'> <a href="http://www.usda.gov/wps/portal/usda/usdahome" target="_blank"> <img src="$_GATEWAY_REPO_BASE_URL/faostat/faostat-images/partners/usda.gif"alt="usda" /> </a> </div>
+            <div class="obj-box-partners-link" id='worldbank'> <a href="http://www.worldbank.org/" target="_blank"> <img src="$_GATEWAY_REPO_BASE_URL/faostat/faostat-images/partners/worldbank.gif"alt="worldbank" /> </a> </div>
+            <div class="obj-box-partners-link" id='wto'> <a href="http://www.wto.org/" target="_blank"> <img src="$_GATEWAY_REPO_BASE_URL/faostat/faostat-images/partners/wto.gif" alt="wto" /> </a> </div>
         </div>
 
 
@@ -120,18 +120,18 @@
 </div>
 
 <script>
-    FAOSTATHomeCharts.createCharts(CORE.lang);
-    FAOSTATDatabaseUpdate.getDatabaseUpdates(CORE.datasource, CORE.lang);
+    FAOSTATHomeCharts.createCharts(CORE.CONFIG.lang);
+    FAOSTATDatabaseUpdate.getDatabaseUpdates(CORE.CONFIG.DATASOURCE, CORE.CONFIG.lang);
 
     /** load of the image TODO: make it dynamic**/
-    document.getElementById("SPLASH").src = "http://"+ CORE.baseURL +"/faostat-gateway/static/faostat/faostat-images/welcome_"+ CORE.lang +".gif";
-    document.getElementById("release-calendar-img").src = "http://"+ CORE.baseURL +"/faostat-gateway/static/faostat/faostat-images/icons/calendar-ico.png";
+    document.getElementById("SPLASH").src = "" + CORE.CONFIG.GATEWAY_REPO_URL +"/faostat/faostat-images/welcome_"+ CORE.CONFIG.lang +".gif";
+    document.getElementById("release-calendar-img").src = ""+ CORE.CONFIG.GATEWAY_REPO_URL +"/faostat/faostat-images/icons/calendar-ico.png";
 
     $("#release-calendar").click(function(){
         window.open("http://faostat3.fao.org/home/faostatReleaseCalendar.html", "_blank")
     });
 
-    FAOSTATHome.loadUI(CORE.lang);
+    FAOSTATHome.loadUI(CORE.CONFIG.lang);
 
     document.getElementById('faostat-download-zip-download').innerHTML = $.i18n.prop('_downloadZip');
     document.getElementById('faostat-download-zip-database').innerHTML = $.i18n.prop('_database');

@@ -1,4 +1,4 @@
  {
     "home" : "http://localhost:8080/base_index.html",
-    "base_url" : "localhost:8080"
+    "base_url" : "localhost:8080/gateway-repo"
 }

@@ -26,9 +26,9 @@ if (!window.FAOSTATGateway) {
                 return false;
             });
             // Reload of the modules in the different languages
-            $("#langE").on("click", function() { CORE.reloadModule('E'); });
-            $("#langF").on("click", function() { CORE.reloadModule('F'); });
-            $("#langS").on("click", function() { CORE.reloadModule('S'); });
+            $("#langE").on("click", function() { CORE.reloadModule('EN'); });
+            $("#langF").on("click", function() { CORE.reloadModule('FR'); });
+            $("#langS").on("click", function() { CORE.reloadModule('ES'); });
         },
 
         _loadLabels: function() {

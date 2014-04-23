@@ -4,6 +4,9 @@ if (!window.FAOSTATDatabaseUpdate) {
 
         getDatabaseUpdates: function(db, lang) {
 
+            // if lang is iso2 then get the FAOSTAT code
+            if ( lang.length >= 2) lang = CORE.convertISO2toFAOSTATLang(lang)
+
             var q = {};
             q.query = "SELECT TOP 10 groupcode, groupname" + lang + ", domaincode, domainname" + lang + ", dateupdate " +
                       "FROM Domain " +
@@ -12,7 +15,7 @@ if (!window.FAOSTATDatabaseUpdate) {
             data.datasource = db,
             data.thousandSeparator = ',';
             data.decimalSeparator = '.';
-            data.decimalNumbers = this.decimalValues;
+            /** data.decimalNumbers = this.decimalValues; **/
             data.json = JSON.stringify(q);
 
 
@@ -21,15 +24,13 @@ if (!window.FAOSTATDatabaseUpdate) {
             //console.log(data);
             $.ajax({
                 type : 'POST',
-                url : 'http://' + CORE.baseURL + '/wds/rest/table/json',
+                url :  CORE.CONFIG.WDS_URL + '/rest/table/json',
                 data : data,
                 success : function(response) {
 
                     if (typeof response == 'string')
                         response = $.parseJSON(response);
 
-
-                   CORE.getLangProperties();
 
                    var html = '';
                     html += '<ul>';

@@ -2,23 +2,55 @@ if (!window.CORE) {
 
     window.CORE = {
 
-        datasource : "faostatproddiss",
-
-        /**
-         * The base URL is used to load FAOSTAT modules.
-         */
-        baseURL : 'localhost:8080',
-
-        groupCode : null,
-
-        domainCode : null,
-
-        word : null,
-
-        lang : null,
-
         CONFIG : {
+            DATASOURCE : "faostat2",
 
+            /**
+             * The base URL is used to load FAOSTAT gateway.
+             */
+            GATEWAY_REPO_URL : 'http://localhost:8080/gateway-repo',
+
+            /**
+             * The base URL is used to load FAOSTAT REST URL (MODULES).
+             */
+            GATEWAY_SERVICE_URL : 'http://localhost:8080/faostat',
+
+            /**
+             * The base WDS/BLETCHLEY URL is used to load FAOSTAT modules.
+             */
+            WDS_URL       : 'http://faostat3.fao.org/wds',
+            BLETCHLEY_URL : 'http://faostat3.fao.org/bletchley',
+
+            groupCode : null,
+            domainCode : null,
+            word : null,
+            lang : null,
+
+            /**
+             * This map is used to avoid modules libraries to be loaded more than once.
+             */
+            loadMapJS : {
+                'home' : false,
+                'browse' : false,
+                'download' : false,
+                'compare' : false,
+                'search' : false,
+                'analysis' : false,
+                'mes' : false
+            },
+
+            /**
+             * This map is used to avoid modules CSS to be loaded more than once.
+             */
+            loadMapCSS : {
+                'home' : false,
+                'browse' : false,
+                'download' : false,
+                'compare' : false,
+                'search' : false,
+                'analysis' : false,
+                'mes' : false
+            }
         },
 
         CONFIG_MES: {
@@ -28,32 +60,6 @@ if (!window.CORE) {
             rest_mes                : 'http://faostat3.fao.org/wds/rest/mes',
             rest_groupanddomains    : 'http://faostat3.fao.org/wds/rest/groupsanddomains',
             rest_domains            : 'http://faostat3.fao.org/wds/rest/domains'
-        },
-
-        /**
-         * This map is used to avoid modules libraries to be loaded more than once.
-         */
-        loadMapJS : {
-            'home' : false,
-            'browse' : false,
-            'download' : false,
-            'compare' : false,
-            'search' : false,
-            'analysis' : false,
-            'mes' : false
-        },
-
-        /**
-         * This map is used to avoid modules CSS to be loaded more than once.
-         */
-        loadMapCSS : {
-            'home' : false,
-            'browse' : false,
-            'download' : false,
-            'compare' : false,
-            'search' : false,
-            'analysis' : false,
-            'mes' : false
         },
 
         /**
@@ -70,9 +76,9 @@ if (!window.CORE) {
             $("#searchFS").show();
 
             // Store parameters
-            CORE.groupCode = groupCode;
-            CORE.domainCode = domainCode;
-            CORE.lang = lang;
+            CORE.CONFIG.groupCode = groupCode;
+            CORE.CONFIG.domainCode = domainCode;
+            CORE.CONFIG.lang = lang;
 
             // Call the init method of the module
             switch (module) {
@@ -122,11 +128,11 @@ if (!window.CORE) {
          * Function linked to the Gateway's menu that load the requested module in the main content.
          */
         loadModule : function(module, group, domain, lang) {
-            window.location.href = 'http://' + CORE.baseURL + '/' + module + '/' + group + '/' + domain + '/' + lang;
+            window.location.href = 'http://' + CORE.CONFIG.GATEWAY_SERVICE_URL + '/' + module + '/' + group + '/' + domain + '/' + lang;
         },
 
         loadSearchModule : function(module, word, lang) {
-            window.location.href = 'http://' + CORE.baseURL + '/' + module + '/' + word + '/' + lang;
+            window.location.href = 'http://' + CORE.CONFIG.GATEWAY_SERVICE_URL + '/' + module + '/' + word + '/' + lang;
         },
 
         /**
@@ -171,7 +177,7 @@ if (!window.CORE) {
                 CORE.loadMapJS[module] = true;
 
                 // Load module's libraries.
-                $.getJSON('http://' + CORE.baseURL + '/static/faostat/faostat-gateway-js/libs.json', function (data) {
+                $.getJSON('http://' + CORE.CONFIG.GATEWAY_REPO_URL + '/faostat/faostat-gateway-js/libs.json', function (data) {
 
                     if(typeof data == 'string')
                         data = $.parseJSON(data);
@@ -256,12 +262,12 @@ if (!window.CORE) {
 
         getLangProperties: function() {
             var I18NLang = '';
-            switch (CORE.lang) {
-                case 'F' : I18NLang = 'fr'; break;
-                case 'S' : I18NLang = 'es'; break;
+            switch (CORE.CONFIG.lang.toUpperCase()) {
+                case 'FR' : I18NLang = 'fr'; break;
+                case 'ES' : I18NLang = 'es'; break;
                 default: I18NLang = 'en'; break;
             }
-            var path =  'http://'+ CORE.baseURL +'/static/faostat/I18N/';
+            var path =  'http://'+ CORE.CONFIG.baseURL +'/faostat/I18N/';
 
             $.i18n.properties({
                 name: 'I18N',
@@ -275,10 +281,10 @@ if (!window.CORE) {
         },
 
         reloadModule: function(lang) {
-            CORE.lang = lang;
+            CORE.CONFIG.lang = lang;
             var url = window.location.href;
             url = url.substring(0, url.length -2);
-            url = url + '/' + CORE.lang;
+            url = url + '/' +  CORE.CONFIG.lang;
             window.location.href = url;
         },
 
@@ -286,9 +292,9 @@ if (!window.CORE) {
         loadModule: function(module, options) {
 
             // TODO: move in in CORE.js
-            var defaultURL =  'http://' + CORE.baseURL +'/' + module + '/'+ options + '/'+  CORE.lang;
-            var homeURL    =  'http://' + CORE.baseURL +'/' + module + '/'+ CORE.lang;
-            var searchURL  =  'http://' + CORE.baseURL +'/' + module + '/'+ options + '/'+ CORE.lang
+            var defaultURL =  'http://' + CORE.CONFIG.GATEWAY_SERVICE_URL +'/' + module + '/'+ options + '/'+  CORE.CONFIG.lang;
+            var homeURL    =  'http://' + CORE.CONFIG.GATEWAY_SERVICE_URL +'/' + module + '/'+ CORE.CONFIG.lang;
+            var searchURL  =  'http://' + CORE.CONFIG.GATEWAY_SERVICE_URL +'/' + module + '/'+ options + '/'+ CORE.CONFIG.lang
 
             switch (module) {
                 case 'search':
@@ -306,6 +312,15 @@ if (!window.CORE) {
                     $("#faostatMenu").outerHeight() +
                     + 85); // this is the footer height that is not calculated dynamically
             $("#container").css("min-height",height+"px");
+        },
+
+        convertISO2toFAOSTATLang: function(iso2lang) {
+            switch (iso2lang.toUpperCase()) {
+                case 'EN': 'E';   break;
+                case 'FR': 'F';   break;
+                case 'ES': 'S';   break;
+                default:  'E';  break;
+            }
         }
 
     };

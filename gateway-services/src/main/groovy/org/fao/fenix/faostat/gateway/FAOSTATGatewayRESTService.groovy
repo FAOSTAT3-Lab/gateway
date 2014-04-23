@@ -38,8 +38,40 @@ import org.fao.fenix.faostat.gateway.*;
 class FAOSTATGatewayRESTService {
 
 
+    def CONFIG_FILE = 'config/faostat/config.json'
 
-    def CONFIG_FILE = 'static/faostat/config/config.json'
+    def DEFAULT_LANGUAGE = 'E'
+
+    /**
+     * @param section   FAOSTAT section: home
+     * @param lang      E, F or S
+     * @return          HTML code to be rendered by the browser
+     */
+    @GET
+    @Produces(MediaType.TEXT_HTML)
+    @Path("home")
+    String loadModuleHomeDefault() { return loadModuleHome(DEFAULT_LANGUAGE) }
+
+    /**
+    /**
+     * @param section   FAOSTAT section: home
+     * @param lang      E, F or S
+     * @return          HTML code to be rendered by the browser
+     */
+    @GET
+    @Produces(MediaType.TEXT_HTML)
+    @Path("home/{lang}")
+    String loadModuleHomeLang(@PathParam("lang") String lang) { return loadModuleHome(lang) }
+    String loadModuleHome(lang) {
+        // Fetch the base HTML
+        HashMap<String, String> configMap = readConfigFile();
+        String main = replaceHtml(configMap, 'faostat-home-js', lang);
+        main = main.replace('$_GATEWAY_REPO_BASE_URL', configMap.get("GATEWAY_REPO_BASE_URL"))
+        // Return the page
+        return main
+    }
+
+
 
     /**
      * @param section   FAOSTAT section: browse, download, search, compare, analysis, mes, home
@@ -52,14 +84,13 @@ class FAOSTATGatewayRESTService {
     @Produces(MediaType.TEXT_HTML)
     @Path("/{section}/{group}/{domain}/{lang}")
     String loadModule(@PathParam("section") String section, @PathParam("group") String group, @PathParam("domain") String domain, @PathParam("lang") String lang) {
-
         HashMap<String, String> configMap = readConfigFile();
         String main = replaceHtml(configMap, 'faostat-'+ section +'-js', lang);
-
         main = main.replace('$_GROUP_CODE', (group == "*" ? "null" : group));
         main = main.replace('$_DOMAIN_CODE', (domain == "*" ? "null" : domain));
-        main = main.replace('$_LANG', lang);
-
+        def faostatLang = getFAOSTATLang(lang)
+        main = main.replace('$_LANG', faostatLang)
+        main = main.replace('$_ISO2_LANG', lang)
         // Return the page
         return main
     }
@@ -75,45 +106,49 @@ class FAOSTATGatewayRESTService {
     @Produces(MediaType.TEXT_HTML)
     @Path("search/{word}/{lang}")
     String loadModuleSearch(@PathParam("word") String word, @PathParam("lang") String lang) {
-
         HashMap<String, String> configMap = readConfigFile();
         String main = replaceHtml(configMap, 'faostat-search-js', lang);
-
         main = main.replace('$_WORD', (word == "*" ? "" : word));
-
         // Return the page
         return main
     }
 
+    HashMap<String, String> readConfigFile() {
+        def config = ConfigServlet.PATH + CONFIG_FILE;
+        def configContent = new File(config).text;
+        Gson g = new Gson();
+        return g.fromJson(configContent, HashMap.class);
+    }
 
-    /**
-     * @param section   FAOSTAT section: home
-     * @param lang      E, F or S
-     * @return          HTML code to be rendered by the browser
-     */
-    @GET
-    @Produces(MediaType.TEXT_HTML)
-    @Path("home/{lang}")
-    String loadModuleHome(@PathParam("lang") String lang) {
-        // Fetch the base HTML
-        HashMap<String, String> configMap = readConfigFile();
-        String main = replaceHtml(configMap, 'faostat-home-js', lang);
+    String getFAOSTATLang(String iso2) {
+        if      ( iso2.toUpperCase() == "EN") return "E";
+        else if ( iso2.toUpperCase() == "FR") return "F";
+        else if ( iso2.toUpperCase() == "ES") return "S";
+        return "E";
+    }
 
-        main = main.replace('$_BASE_URL', configMap.get("base_url"))
 
-        // Return the page
-        return main
+    String getLangISo2(String lang) {
+        if      ( lang.toUpperCase() == "E") return "EN";
+        else if ( lang.toUpperCase() == "F") return "FR";
+        else if ( lang.toUpperCase() == "S") return "ES";
+        return "en";
     }
 
     String replaceHtml(configMap, section, lang) {
-        def base_index_url = ConfigServlet.PATH + "static/faostat/base_index.html"
-        // Load main HTML content
-        def content = null;
-        def main =  new File(base_index_url).text;
-        main = main.replace('$_BASE_URL', configMap.get("base_url"))
 
-        main = main.replace('$_LANG', lang)
-        main = main.replace('$_ISO2_LANG', getLangISo2(lang))
+        // set lang always as toUpperCase
+        lang = lang.toUpperCase();
+
+        // HTLM CONTENT
+        def main = new URL('http://' + configMap.get("GATEWAY_REPO_BASE_URL") + "/faostat/base_index.html").getText()
+
+        main = main.replace('$_GATEWAY_REPO_BASE_URL', configMap.get("GATEWAY_REPO_BASE_URL"))
+        main = main.replace('$_MODULES_BASE_URL', configMap.get("MODULES_BASE_URL"))
+
+        def faostatLang = getFAOSTATLang(lang)
+        main = main.replace('$_LANG', faostatLang)
+        main = main.replace('$_ISO2_LANG', lang)
 
         // TODO: make it nicer
         main = main.replace('$_DISPLAY_SEARCH', 'true')
@@ -122,38 +157,15 @@ class FAOSTATGatewayRESTService {
         main = main.replace('$_SECTION_NAME', "home")
 
         // Load the module
-        def sectionURL = ConfigServlet.PATH + "static/faostat/"+ section +"/index_gateway.html"
-
-        // Fetch its content
-        content = new File(sectionURL).text;
+        def sectionContent = new URL('http://' + configMap.get("GATEWAY_REPO_BASE_URL") + "/faostat/" + section +"/index_gateway.html").getText();
 
         // Replace wildcards with parameters from the REST
-        content = content.replace('$_LANG', lang)
-        content = content.replace('$_BASE_URL', configMap.get("base_url"))
+        sectionContent = sectionContent.replace('$_ISO2_LANG', faostatLang)
+        sectionContent = sectionContent.replace('GATEWAY_REPO_BASE_URL', configMap.get("GATEWAY_REPO_BASE_URL"))
 
         // Inject the module into the main HTML
-        main = main.replace('$_CONTENT', content);
+        main = main.replace('$_CONTENT', sectionContent);
         return main;
-    }
-
-    HashMap<String, String> readConfigFile() {
-        def config = ConfigServlet.PATH + CONFIG_FILE;
-        println(ConfigServlet.PATH);
-        println(config);
-        def configContent = new File(config).text;
-        Gson g = new Gson();
-        return g.fromJson(configContent, HashMap.class);
-    }
-
-
-    String getLangISo2(String lang) {
-        if ( lang.toUpperCase() == "E")
-            return "en";
-        else if   ( lang.toUpperCase() == "F")
-            return "fr";
-        else if   ( lang.toUpperCase() == "S")
-            return "es";
-        return "en";
     }
 
 }

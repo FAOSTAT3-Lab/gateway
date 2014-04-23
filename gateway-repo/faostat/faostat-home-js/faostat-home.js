@@ -2,7 +2,6 @@ if (!window.FAOSTATHome) {
 
     window.FAOSTATHome = {
 
-
         /**
          * This map is used to avoid modules libraries to be loaded more than once.
          */
@@ -15,7 +14,7 @@ if (!window.FAOSTATHome) {
         },
 
         _loadNews: function(id, type, lang) {
-            var url = 'http://' + CORE.baseURL + '/gateway/static/faostat/faostat-home-js/resources/' + type +'.json';
+            var url = CORE.CONFIG.GATEWAY_REPO_URL + '/faostat/faostat-home-js/resources/' + type +'.json';
             $.getJSON(url, function(data) {
                 for( var i=0; i < data.length; i++) {
                     var html = '<div class="news-element">';
@@ -28,7 +27,7 @@ if (!window.FAOSTATHome) {
         },
 
         _loadLinks: function(id, lang) {
-            var url = 'http://' + CORE.baseURL + '/gateway/static/faostat/faostat-home-js/resources/links.json';
+            var url = CORE.CONFIG.GATEWAY_REPO_URL + '/faostat/faostat-home-js/resources/links.json';
             $.getJSON(url, function(data) {
                 for( var i=0; i < data.length; i++) {
                     var html = '<div class="partner-link">';
@@ -89,7 +88,7 @@ if (!window.FAOSTATHome) {
         _showBulkDownload: function() {
             $.ajax({
                 type: 'GET',
-                url: 'http://' + CORE.baseURL + '/wds/rest/bulkdownloads/' + CORE.datasource + '/0/E',
+                url: CORE.CONFIG.WDS_URL + '/rest/bulkdownloads/' + CORE.CONFIG.DATASOURCE + '/0/E',
                 dataType: 'json',
                 success: function (response) {
                     if (typeof response == 'string')
