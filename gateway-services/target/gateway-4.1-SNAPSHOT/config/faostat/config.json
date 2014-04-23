@@ -1,4 +1,0 @@
-{
-    "GATEWAY_REPO_BASE_URL" : "localhost:8080/gateway-repo",
-    "MODULES_BASE_URL"      : "localhost:8080"
-}
