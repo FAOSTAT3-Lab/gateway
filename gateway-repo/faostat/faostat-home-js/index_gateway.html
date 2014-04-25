@@ -118,22 +118,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    FAOSTATHomeCharts.createCharts(CORE.CONFIG.lang);
-    FAOSTATDatabaseUpdate.getDatabaseUpdates(CORE.CONFIG.DATASOURCE, CORE.CONFIG.lang);
-
-    /** load of the image TODO: make it dynamic**/
-    document.getElementById("SPLASH").src = "" + CORE.CONFIG.GATEWAY_REPO_URL +"/faostat/faostat-images/welcome_"+ CORE.CONFIG.lang +".gif";
-    document.getElementById("release-calendar-img").src = ""+ CORE.CONFIG.GATEWAY_REPO_URL +"/faostat/faostat-images/icons/calendar-ico.png";
-
-    $("#release-calendar").click(function(){
-        window.open("http://faostat3.fao.org/home/faostatReleaseCalendar.html", "_blank")
-    });
-
-    FAOSTATHome.loadUI(CORE.CONFIG.lang);
-
-    document.getElementById('faostat-download-zip-download').innerHTML = $.i18n.prop('_downloadZip');
-    document.getElementById('faostat-download-zip-database').innerHTML = $.i18n.prop('_database');
-    document.getElementById('faostat-download-zip-click').innerHTML = $.i18n.prop('_withoneclick');
-</script>

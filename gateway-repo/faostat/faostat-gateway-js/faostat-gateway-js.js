@@ -6,17 +6,24 @@ if (!window.FAOSTATGateway) {
         /**
          * This map is used to avoid modules libraries to be loaded more than once.
          */
-        loadUI : function() {
-            // fix to load async labels. TODO: make it nicer
-            CORE.getLangProperties();
-            //FAOSTATGateway._loadLabels();
-            FAOSTATGateway._loadListeners();
+        loadUI : function(module, config) {
+            FAOSTATGateway._loadI18N(module, config)
 
+        },
+
+        _loadI18N: function(module, config) {
+            CORE.getLangProperties(FAOSTATGateway._load18NCallback, module, config)
+        },
+
+        _load18NCallback: function(module, config){
+            FAOSTATGateway._loadLabels();
+            FAOSTATGateway._loadListeners();
             // Enable the feedback System
             FAOSTATGateway._loadFeedbackSystem('faostat-feedback-system');
-
             FAOSTATGateway._inizializeDD('faostat-feedback-system');
 
+            // Load module with config
+            CORE.initModule(module, config)
         },
 
         _loadListeners: function() {
@@ -33,8 +40,6 @@ if (!window.FAOSTATGateway) {
 
         _loadLabels: function() {
             /** setting lang properties **/
-                //CORE.getLangProperties();
-
             $('#home').html($.i18n.prop('_home'));
             $('#browse').html($.i18n.prop('_browse'));
             $('#download').html($.i18n.prop('_download'));
@@ -67,7 +72,7 @@ if (!window.FAOSTATGateway) {
         },
 
         _loadFeedbackSystem: function(id) {
-           // $("#" + id).fancybox();
+           //$("#" + id).fancybox();
         }
 
     };

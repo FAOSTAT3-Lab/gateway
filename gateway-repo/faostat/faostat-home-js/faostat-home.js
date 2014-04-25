@@ -2,19 +2,36 @@ if (!window.FAOSTATHome) {
 
     window.FAOSTATHome = {
 
-        /**
-         * This map is used to avoid modules libraries to be loaded more than once.
-         */
-        loadUI : function(lang) {
+        init : function(gateway_repo_url, wds_url, datasource, lang) {
             FAOSTATHome._labels();
-            FAOSTATHome._loadNews('whatsNew-content', 'whatsNew', lang);
-            FAOSTATHome._loadNews('comingUp-content', 'comingUp', lang);
-            FAOSTATHome._loadLinks('partner-content', lang);
+            FAOSTATHome._loadInterface(gateway_repo_url, datasource, lang);
+            FAOSTATHome._loadNews(gateway_repo_url, 'whatsNew-content', 'whatsNew', lang);
+            FAOSTATHome._loadNews(gateway_repo_url, 'comingUp-content', 'comingUp', lang);
+            FAOSTATHome._loadLinks(gateway_repo_url, 'partner-content', lang);
             FAOSTATHome._showBulkDownload();
         },
 
-        _loadNews: function(id, type, lang) {
-            var url = CORE.CONFIG.GATEWAY_REPO_URL + '/faostat/faostat-home-js/resources/' + type +'.json';
+        _loadInterface:function(gateway_repo_url, datasource, lang) {
+            FAOSTATHomeCharts.createCharts(lang);
+            FAOSTATDatabaseUpdate.getDatabaseUpdates(datasource, lang);
+
+            /** load of the image TODO: make it dynamic**/
+            document.getElementById("SPLASH").src = "" + gateway_repo_url +"/faostat/faostat-images/welcome_"+ lang +".gif";
+            document.getElementById("release-calendar-img").src = ""+ gateway_repo_url +"/faostat/faostat-images/icons/calendar-ico.png";
+
+            $("#release-calendar").click(function(){
+                window.open("http://faostat3.fao.org/home/faostatReleaseCalendar.html", "_blank")
+            });
+
+           // FAOSTATHome.loadUI(CORE.CONFIG.LANG);
+
+            document.getElementById('faostat-download-zip-download').innerHTML = $.i18n.prop('_downloadZip');
+            document.getElementById('faostat-download-zip-database').innerHTML = $.i18n.prop('_database');
+            document.getElementById('faostat-download-zip-click').innerHTML = $.i18n.prop('_withoneclick');
+        },
+
+        _loadNews: function(gateway_repo_url, id, type, lang) {
+            var url = gateway_repo_url + '/faostat/faostat-home-js/resources/' + type +'.json';
             $.getJSON(url, function(data) {
                 for( var i=0; i < data.length; i++) {
                     var html = '<div class="news-element">';
@@ -26,8 +43,8 @@ if (!window.FAOSTATHome) {
             });
         },
 
-        _loadLinks: function(id, lang) {
-            var url = CORE.CONFIG.GATEWAY_REPO_URL + '/faostat/faostat-home-js/resources/links.json';
+        _loadLinks: function(gateway_repo_url, id, lang) {
+            var url = gateway_repo_url + '/faostat/faostat-home-js/resources/links.json';
             $.getJSON(url, function(data) {
                 for( var i=0; i < data.length; i++) {
                     var html = '<div class="partner-link">';
@@ -41,10 +58,8 @@ if (!window.FAOSTATHome) {
         },
 
         _labels: function() {
-            /** setting lang properties **/
-           // CORE.getLangProperties();
 
-            /* labels */
+            // labels
             $('#whatsNewText').html($.i18n.prop('_whatsNew'));
             $('#databaseUpdatesText').html($.i18n.prop('_databaseUpdates'));
             $('#comingUpText').html($.i18n.prop('_comingUp'));
@@ -85,10 +100,10 @@ if (!window.FAOSTATHome) {
             $("#wto").powerTip({placement: 's'});
         },
 
-        _showBulkDownload: function() {
+        _showBulkDownload: function(wds_url, datasource, lang) {
             $.ajax({
                 type: 'GET',
-                url: CORE.CONFIG.WDS_URL + '/rest/bulkdownloads/' + CORE.CONFIG.DATASOURCE + '/0/E',
+                url: wds_url + '/rest/bulkdownloads/' + datasource + '/0/E',
                 dataType: 'json',
                 success: function (response) {
                     if (typeof response == 'string')

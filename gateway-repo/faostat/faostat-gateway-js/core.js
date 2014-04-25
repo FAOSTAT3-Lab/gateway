@@ -5,26 +5,24 @@ if (!window.CORE) {
         CONFIG : {
             DATASOURCE : "faostat2",
 
-            /**
-             * The base URL is used to load FAOSTAT gateway.
-             */
+            // The base URL is used to load FAOSTAT gateway.
             GATEWAY_REPO_URL : 'http://localhost:8080/gateway-repo',
 
-            /**
-             * The base URL is used to load FAOSTAT REST URL (MODULES).
-             */
+            // The base URL is used to load FAOSTAT REST URL (MODULES).
             GATEWAY_SERVICE_URL : 'http://localhost:8080/faostat',
 
-            /**
-             * The base WDS/BLETCHLEY URL is used to load FAOSTAT modules.
-             */
+            // The base WDS/BLETCHLEY URL is used to load FAOSTAT modules.
             WDS_URL       : 'http://faostat3.fao.org/wds',
             BLETCHLEY_URL : 'http://faostat3.fao.org/bletchley',
 
-            groupCode : null,
-            domainCode : null,
-            word : null,
-            lang : null,
+            LANG  : null,    // ISO2 langcode
+
+            /*MODULE: null,   // i.e. ('home','download', 'browse') current module (set on base_index.html)
+            SECTION: null,  // i.e. in browse: ('domain', 'area')
+            CODE : null, // final code (i.e. 'Q','QC') */
+
+            // used in search TODO: use CODE
+            //WORD : null,
 
             /**
              * This map is used to avoid modules libraries to be loaded more than once.
@@ -64,33 +62,42 @@ if (!window.CORE) {
 
         /**
          * @param module        home, browse, download, compare, search, analysis, mes
-         * @param groupCode     FAOSTAT group code, e.g. 'Q'
-         * @param groupName     FAOSTAT domain code, e.g. 'QC'
-         * @param lang          UI language, e.g. 'E'
+         * @param config        config json for the method
+         *                      {
+         *                          "section": 'domain' (i.e. for browse)
+         *                          "code"   : 'Q', 'QC' (i.e. in browse)
+         *                      }
          */
-        initModule : function(module, groupCode, domainCode, lang) {
-
+        initModule : function(module, config) {
+            console.log('CORE.initModule(): ' + module)
+            console.log('CORE.initModule(): ' + module + " - " + config)
             // method to calculate DIV min height
             CORE.contentDIVMinHeight();
 
+            // show the search bar
             $("#searchFS").show();
 
+
             // Store parameters
-            CORE.CONFIG.groupCode = groupCode;
-            CORE.CONFIG.domainCode = domainCode;
-            CORE.CONFIG.lang = lang;
+            if ( module ) CORE.CONFIG.MODULE = module; // to know which module is currently in use
+
+            // TODO: alter config with DATASOURCE i.e. config.DATASOURCE to pass it to the specific module
+
 
             // Call the init method of the module
-            switch (module) {
-                case 'home': break;
-                case 'browse':      CORE.loadModuleLibs(module, function() { FAOSTATBrowse.init(CORE.groupCode, CORE.domainCode, CORE.lang) }); break;
-                case 'download':    CORE.loadModuleLibs(module, function() { FAOSTATDownload.init(CORE.groupCode, CORE.domainCode, CORE.lang) }); break;
-                case 'compare':     CORE.loadModuleLibs(module, function() { FAOSTATCompare.init(CORE.groupCode, CORE.domainCode, CORE.lang) }); break;
-                case 'analysis':    CORE.loadModuleLibs(module, function() { ANALYSIS.init(CORE.groupCode, CORE.domainCode, CORE.lang) }); break;
+            switch (CORE.CONFIG.MODULE.toLowerCase()) {
+                case 'home':    FAOSTATHome.init(CORE.CONFIG.GATEWAY_REPO_URL, CORE.CONFIG.WDS_URL, CORE.CONFIG.DATASOURCE, CORE.CONFIG.LANG); break;
+                //case 'browse':  CORE.loadModuleLibs(module, function() { FAOSTATBrowse.init(CORE.CONFIG.GROUPCODE, CORE.CONFIG.DOMAINCODE, CORE.CONFIG.LANG) }); break;
+                case 'browse':  CORE.loadModuleLibs(CORE.CONFIG.MODULE, function() { FAOSTATBrowse.init( config) }); break;
+
+                case 'download':CORE.loadModuleLibs(CORE.CONFIG.MODULE, function() { FAOSTATDownload.init(CORE.CONFIG.GROUPCODE, CORE.CONFIG.DOMAINCODE, CORE.CONFIG.LANG) }); break;
+                case 'compare': CORE.loadModuleLibs(CORE.CONFIG.MODULE, function() { FAOSTATCompare.init(CORE.CONFIG.GROUPCODE, CORE.CONFIG.DOMAINCODE, CORE.CONFIG.LANG) }); break;
+                case 'analysis':CORE.loadModuleLibs(CORE.CONFIG.MODULE, function() { ANALYSIS.init(CORE.CONFIG.GROUPCODE, CORE.CONFIG.DOMAINCODE, CORE.CONFIG.LANG) }); break;
                 case 'mes':
-                    CORE.CONFIG_MES.sectionCode = groupCode;
-                    CORE.CONFIG_MES.subSectionCode = domainCode;
-                    CORE.CONFIG_MES.lang = lang;
+                    CORE.CONFIG_MES.sectionCode = CORE.CONFIG.SECTION;
+                    CORE.CONFIG_MES.CODE = CORE.CONFIG.CODE;
+                    //CORE.CONFIG_MES.subSectionCode =  config.SUBSECTION;
+                    CORE.CONFIG_MES.lang = CORE.CONFIG.LANG;
                     CORE.loadModuleLibs(module, function() {
                         MES.init( CORE.CONFIG_MES )
                     });
@@ -110,30 +117,17 @@ if (!window.CORE) {
             CORE.contentDIVMinHeight();
 
             // Store parameters
-            CORE.word = word;
-            CORE.lang = lang;
+            CORE.CONFIG.WORD = word;
+            CORE.CONFIG.LANG = lang;
 
             // Call the init method of the module
             switch (module) {
-                case 'search':  CORE.loadModuleLibs(module, function() { FAOSTATSearch.init(CORE.word, CORE.lang)});
+                case 'search':  CORE.loadModuleLibs(module, function() { FAOSTATSearch.init(CORE.CONFIG.WORD, CORE.CONFIG.LANG)});
             }
         },
 
-        /**
-         * @param module 	home, browse, download, compare, search, analysis, mes
-         * @param group		FAOSTAT group code, e.g. 'Q'
-         * @param domain	FAOSTAT domain code, e.g. 'QC'
-         * @param lang 		UI language, e.g. 'E'
-         *
-         * Function linked to the Gateway's menu that load the requested module in the main content.
-         */
-        loadModule : function(module, group, domain, lang) {
-            window.location.href = 'http://' + CORE.CONFIG.GATEWAY_SERVICE_URL + '/' + module + '/' + group + '/' + domain + '/' + lang;
-        },
 
-        loadSearchModule : function(module, word, lang) {
-            window.location.href = 'http://' + CORE.CONFIG.GATEWAY_SERVICE_URL + '/' + module + '/' + word + '/' + lang;
-        },
+
 
         /**
          * @returns {boolean} <code>true</code> if HTML5 is supported, <code>false</code> otherwise
@@ -153,10 +147,13 @@ if (!window.CORE) {
          * This function update the URL to allow the bookmark of the user's selection.
          */
         upgradeURL : function(module, group, domain, lang) {
+            // TODO: TO CHANGE
+            console.log('TODO: @DEPRECATED CORE.upgradeURL() needs to be changed')
+
             /** TODO: make is as load module **/
-            if (CORE.testHTML5()) {
+            /**if (CORE.testHTML5()) {
                 window.history.pushState(null, '', '/' + module + '/' + group + '/' + domain + '/' + lang);
-            }
+            } **/
         },
 
         stickSelectorsHeader : function() {
@@ -171,27 +168,23 @@ if (!window.CORE) {
          */
         loadModuleLibs : function(module, initFunction) {
 
-            if (!CORE.loadMapJS[module]) {
+            if (!CORE.CONFIG.loadMapJS[module]) {
 
                 // Register the module
-                CORE.loadMapJS[module] = true;
+                CORE.CONFIG.loadMapJS[module] = true;
 
                 // Load module's libraries.
-                $.getJSON('http://' + CORE.CONFIG.GATEWAY_REPO_URL + '/faostat/faostat-gateway-js/libs.json', function (data) {
+                $.getJSON(CORE.CONFIG.GATEWAY_REPO_URL + '/faostat/faostat-gateway-js/libs.json', function (data) {
 
-                    if(typeof data == 'string')
-                        data = $.parseJSON(data);
-
+                    if(typeof data == 'string') data = $.parseJSON(data);
                     if ( data[module] )  {
                         var moduleLibs = data[module];
-
                         var requests = []
                         if ( moduleLibs.css ) {
                             for (var i = 0 ; i < moduleLibs.css.length ; i++) {
                                 requests.push(moduleLibs.css[i]);
                             }
                         }
-
                         if ( moduleLibs.js ) {
                             for (var i = 0 ; i < moduleLibs.js.length ; i++) {
                                 requests.push(moduleLibs.js[i]);
@@ -199,16 +192,12 @@ if (!window.CORE) {
                         }
                         //ImportDependencies.importAsync(requests, initFunction);
                         ImportDependencies.importSequentially(requests, initFunction );
-
                     }
-                    else{
-                        initFunction();
-                    }
-
+                    else{ initFunction(); }
                 })
 
             } else {
-                console.log('JS libraries for module ' + module + ' won\'t be loaded again');
+                //console.log('JS libraries for module ' + module + ' won\'t be loaded again');
             }
         },
 
@@ -232,9 +221,7 @@ if (!window.CORE) {
 
         breakLabelList: function (lbl, charsLength) {
             var chars = 23;
-            if ( charsLength != null ) {
-                chars = charsLength;
-            }
+            if ( charsLength != null ) { chars = charsLength; }
             var c = 0;
             var index = 0;
             for (var i = 0 ; i < lbl.length ; i++) {
@@ -260,41 +247,37 @@ if (!window.CORE) {
             return temp;
         },
 
-        getLangProperties: function() {
-            var I18NLang = '';
-            switch (CORE.CONFIG.lang.toUpperCase()) {
-                case 'FR' : I18NLang = 'fr'; break;
-                case 'ES' : I18NLang = 'es'; break;
-                default: I18NLang = 'en'; break;
-            }
-            var path =  'http://'+ CORE.CONFIG.baseURL +'/faostat/I18N/';
-
+        getLangProperties: function(callback, module, config) {
+            var I18NLang = CORE.CONFIG.LANG.toLowerCase();
+            var path = CORE.CONFIG.GATEWAY_REPO_URL +'/faostat/I18N/';
             $.i18n.properties({
                 name: 'I18N',
                 path: path,
                 mode: 'both',
                 language: I18NLang,
                 callback: function() {
-                    FAOSTATGateway._loadLabels();
+                    callback(module, config)
                 }
             });
         },
 
         reloadModule: function(lang) {
-            CORE.CONFIG.lang = lang;
+            alert('TODO: @DEPRECATED CORE.reloadModule() needs to be changed')
+            /*console.log(CORE.CONFIG.LANG )
             var url = window.location.href;
             url = url.substring(0, url.length -2);
-            url = url + '/' +  CORE.CONFIG.lang;
-            window.location.href = url;
+            url = url + '/' +  CORE.CONFIG.LANG;
+            window.location.href = url;*/
         },
 
         /** TODO: to be completed **/
-        loadModule: function(module, options) {
+        loadModule: function(module, config) {
 
+            var lang = (CORE.CONFIG.LANG.toLowerCase() == 'en')? '/' : CORE.CONFIG.LANG.toLowerCase();
             // TODO: move in in CORE.js
-            var defaultURL =  'http://' + CORE.CONFIG.GATEWAY_SERVICE_URL +'/' + module + '/'+ options + '/'+  CORE.CONFIG.lang;
-            var homeURL    =  'http://' + CORE.CONFIG.GATEWAY_SERVICE_URL +'/' + module + '/'+ CORE.CONFIG.lang;
-            var searchURL  =  'http://' + CORE.CONFIG.GATEWAY_SERVICE_URL +'/' + module + '/'+ options + '/'+ CORE.CONFIG.lang
+            var defaultURL =  CORE.CONFIG.GATEWAY_SERVICE_URL + lang + module + '/'+ config;
+            var homeURL    =  CORE.CONFIG.GATEWAY_SERVICE_URL + lang + module + '/';
+            var searchURL  =  CORE.CONFIG.GATEWAY_SERVICE_URL + lang + module + '/'+ config;
 
             switch (module) {
                 case 'search':
@@ -304,6 +287,10 @@ if (!window.CORE) {
                 default:
                     window.location.href = defaultURL;  break;
             }
+        },
+
+        loadSearchModule : function(module, word, lang) {
+            window.location.href = CORE.CONFIG.GATEWAY_SERVICE_URL + '/' + module + '/' + word + '/' + lang;
         },
 
         contentDIVMinHeight: function() {
@@ -316,10 +303,10 @@ if (!window.CORE) {
 
         convertISO2toFAOSTATLang: function(iso2lang) {
             switch (iso2lang.toUpperCase()) {
-                case 'EN': 'E';   break;
-                case 'FR': 'F';   break;
-                case 'ES': 'S';   break;
-                default:  'E';  break;
+                case 'EN': return 'E';
+                case 'FR': return 'F';
+                case 'ES': return 'S';
+                default:  return 'E';
             }
         }
 
